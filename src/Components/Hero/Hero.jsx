@@ -2,7 +2,11 @@
 import React, { useState } from "react";
 import bannerImg from "../../assets/banner.png";
 import Button from "../UI/Button";
+import { CartContext } from "../../providers/Contexts";
+
 const Hero = ({ handleSearch }) => {
+  // const { cart } = useContext(CartContext);
+  // console.log(cart);
   const [searchText, setSearchText] = useState("");
 
   return (

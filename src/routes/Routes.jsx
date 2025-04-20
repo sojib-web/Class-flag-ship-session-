@@ -8,6 +8,7 @@ import Favorites from "../pages/Favorites/Favorites";
 import PhoneDetails from "../pages/PhoneDetails/PhoneDetails";
 import About from "../pages/About/About";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import CartDetails from "../Components/Cart_details/CartDetails";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
         path: "/phone-details/:id",
         loader: () => fetch("../phones.json"),
         Component: PhoneDetails,
+      },
+      {
+        path: "/cart-details",
+        Component: CartDetails,
       },
     ],
   },

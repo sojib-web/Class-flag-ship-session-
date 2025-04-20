@@ -1,12 +1,14 @@
 // @ts-nocheck
-import React from "react";
+import React, { useContext } from "react";
 import { useLoaderData, useParams } from "react-router";
 import Button from "../../Components/UI/Button";
 import { IoBookmarkSharp } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
-import { addFavorite } from "../../Utils";
+import { addFavorite, addToCart, getCart } from "../../Utils";
+import { CartContext } from "../../providers/Contexts";
 
 const PhoneDetails = () => {
+  const { setCart } = useContext(CartContext);
   const data = useLoaderData();
   const { id } = useParams();
 
@@ -37,6 +39,11 @@ const PhoneDetails = () => {
     addFavorite(singlePhone);
   };
 
+  const handleCart = () => {
+    addToCart(singlePhone);
+    setCart(getCart());
+  };
+
   return (
     <div className="py-12 max-w-4xl mx-auto px-4">
       <img src={image} alt={name} className="w-full rounded-2xl mx-auto" />
@@ -44,8 +51,8 @@ const PhoneDetails = () => {
       <div className="mt-16 flex justify-between items-center">
         <h1 className="text-4xl font-semibold">Name: {name}</h1>
         <div className="flex gap-3">
-          <Button label={<IoBookmarkSharp />} />
-          <Button onClick={handleFavorite} label={<FaShoppingCart />} />
+          <Button onClick={handleCart} label={<FaShoppingCart />} />
+          <Button onClick={handleFavorite} label={<IoBookmarkSharp />} />
         </div>
       </div>
 
@@ -54,16 +61,16 @@ const PhoneDetails = () => {
       <div className="mt-8 space-y-2">
         <h2 className="text-2xl font-bold">Details</h2>
 
-        <p>
-          <strong>Price:</strong>{" "}
+        <div className="flex gap-2">
+          <h2 className="font-semibold">Price:</h2>
           <div>
             {Object.entries(price).map(([storage, price]) => (
-              <p key={storage} className="">
+              <p key={storage}>
                 <span>{storage}:</span> <span>{price}</span>
               </p>
             ))}
           </div>
-        </p>
+        </div>
 
         <p>
           <strong>Brand:</strong> {brand}
